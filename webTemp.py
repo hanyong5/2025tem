@@ -35,10 +35,11 @@ browser.find_element(By.CLASS_NAME,'btn_search').click()
 
 
 # 온도 정보가 나타날 때까지 최대 10초 대기
-WebDriverWait(browser, 10).until(
-    EC.presence_of_element_located((By.CSS_SELECTOR, '.temperature_text strong'))
-)
+# WebDriverWait(browser, 10).until(
+#     EC.presence_of_element_located((By.CSS_SELECTOR, '.temperature_text strong'))
+# )
 
+time.sleep(1)
 
 # data = browser.find_element(By.CSS_SELECTOR, '.temperature_text strong').text.replace('현재 온도', '').replace('°', '').strip()
 
