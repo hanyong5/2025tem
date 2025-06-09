@@ -5,6 +5,9 @@ on:
     - cron: "0 * * * *" # 매 시간 정각
   workflow_dispatch:
 
+permissions:
+  contents: write # ← 이게 핵심입니다
+
 jobs:
   fetch_weather:
     runs-on: ubuntu-latest
