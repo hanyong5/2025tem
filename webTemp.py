@@ -1,4 +1,3 @@
-
 import time
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
@@ -34,19 +33,20 @@ browser.find_element(By.ID, 'query').send_keys("날씨") # 검색어 입력
 browser.find_element(By.CLASS_NAME,'btn_search').click()
 
 
-# 온도 정보가 나타날 때까지 최대 10초 대기
-# WebDriverWait(browser, 10).until(
-#     EC.presence_of_element_located((By.CSS_SELECTOR, '.temperature_text strong'))
-# )
+# 온도 정보가 나타날 때까지 최대 20초 대기
+WebDriverWait(browser, 20).until(
+    EC.presence_of_element_located((By.CSS_SELECTOR, '.temperature_text strong'))
+)
 
-time.sleep(1)
+# 페이지가 완전히 로드될 때까지 잠시 대기
+time.sleep(2)
 
-# data = browser.find_element(By.CSS_SELECTOR, '.temperature_text strong').text.replace('현재 온도', '').replace('°', '').strip()
-
-# 추출
-data = browser.find_element(By.CSS_SELECTOR, '.temperature_text strong').text
-
-
+try:
+    data = browser.find_element(By.CSS_SELECTOR, '.temperature_text strong').text.replace('현재 온도', '').replace('°', '').strip()
+except Exception as e:
+    print(f"온도 정보를 찾을 수 없습니다: {e}")
+    browser.quit()
+    exit(1)
 
 # 현재 날짜와 시간 가져오기
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
