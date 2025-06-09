@@ -33,18 +33,29 @@ browser.find_element(By.ID, 'query').send_keys("날씨") # 검색어 입력
 browser.find_element(By.CLASS_NAME,'btn_search').click()
 
 
-# 온도 정보가 나타날 때까지 최대 20초 대기
+# 검색 후 날씨 정보가 로드될 때까지 대기
 WebDriverWait(browser, 20).until(
-    EC.presence_of_element_located((By.CSS_SELECTOR, '.temperature_text strong'))
+    EC.presence_of_element_located((By.CLASS_NAME, 'weather_area'))
 )
 
 # 페이지가 완전히 로드될 때까지 잠시 대기
-time.sleep(2)
+time.sleep(3)
 
 try:
-    data = browser.find_element(By.CSS_SELECTOR, '.temperature_text strong').text.replace('현재 온도', '').replace('°', '').strip()
+    # 새로운 선택자로 온도 정보 찾기
+    temperature_element = browser.find_element(By.CSS_SELECTOR, '.weather_area .temperature_text')
+    data = temperature_element.text.replace('현재 온도', '').replace('°', '').strip()
+    
+    if not data:
+        # 대체 선택자 시도
+        temperature_element = browser.find_element(By.CSS_SELECTOR, '.weather_area .temperature')
+        data = temperature_element.text.replace('현재 온도', '').replace('°', '').strip()
+        
 except Exception as e:
     print(f"온도 정보를 찾을 수 없습니다: {e}")
+    # 디버깅을 위해 현재 페이지 소스 출력
+    print("현재 페이지 소스:")
+    print(browser.page_source)
     browser.quit()
     exit(1)
 
