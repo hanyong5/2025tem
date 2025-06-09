@@ -28,7 +28,7 @@ browser.find_element(By.ID, 'query').click()
 browser.find_element(By.ID, 'query').send_keys("날씨") # 검색어 입력
 browser.find_element(By.CLASS_NAME,'btn_search').click()
 
-time.sleep(2)
+
 data = browser.find_element(By.CSS_SELECTOR, '.temperature_text strong').text.replace('현재 온도', '').replace('°', '').strip()
 
 print(data)
