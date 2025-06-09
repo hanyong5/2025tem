@@ -29,7 +29,7 @@ browser.get(url)
 print(browser.title)
 
 browser.find_element(By.ID, 'query').click()
-browser.find_element(By.ID, 'query').send_keys("날씨") # 검색어 입력
+browser.find_element(By.ID, 'query').send_keys("서울날씨") # 검색어 입력
 browser.find_element(By.CLASS_NAME,'btn_search').click()
 
 
