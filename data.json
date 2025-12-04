@@ -1,5 +1,9 @@
 [
     {
+        "datetime": "2025-12-04 10:31:31",
+        "temperature": "0.5"
+    },
+    {
         "datetime": "2025-12-04 09:31:13",
         "temperature": "0.0"
     },
